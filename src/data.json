@@ -1,0 +1,19 @@
+{
+    "f_name":"",
+    "l_name":"",
+    "address":"",
+    "Bank Details":{
+        "CRN No.":"",
+        "Bank Name":"",
+        "Account No.":""
+    },
+    "employeement":{
+        "Previous Company":"",
+        "From Year":"",
+        "To Year":"",
+        "salary":""
+    }
+}
+
+
+
