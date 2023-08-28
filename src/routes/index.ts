@@ -95,20 +95,36 @@ route.post("/create", (req, res) => {
     }
 })
 
-route.put("/updateRecords",(req,res)=>{
+route.put("/updateRecords", (req, res) => {
     const { name, lastName, address, crn_no, bank_name, account_no, worked, salary, from_year, to_year } = req.body;
     const apiKey = req.header("apiKey")
-    name !== undefined && name.length > 0 ? dataUser['f_name'] = name : null
-    lastName !== undefined && lastName.length > 0 ? dataUser['l_name'] = lastName : null
-    address !== undefined && address.length > 0 ? dataUser['address'] = address : null
-    crn_no !== undefined && crn_no.length > 0 ? dataUser['Bank Details']['CRN No.'] = crn_no : null
-    bank_name !== undefined && bank_name.length > 0 ? dataUser['Bank Details']['Bank Name'] = bank_name : null
-    account_no !== undefined && account_no.length > 0 ? dataUser['Bank Details']['Account No.'] = account_no : null
-    worked !== undefined && worked.length > 0 ? dataUser['employeement']['Previous Company'] = worked : null
-    salary !== undefined && salary.length > 0 ? dataUser['employeement']['salary'] = salary : null
-    to_year !== undefined && to_year.length > 0 ? dataUser['employeement']['To Year'] = to_year : null
-    from_year !== undefined && from_year.length > 0 ? dataUser['employeement']['From Year'] = from_year : null
-    return res.json({'message':'Updated '})
+    if (apiKey === freePlanKey) {
+        name !== undefined && name.length > 0 ? dataUser['f_name'] = name : null
+        lastName !== undefined && lastName.length > 0 ? dataUser['l_name'] = lastName : null
+        address !== undefined && address.length > 0 ? dataUser['address'] = address : null
+        crn_no !== undefined && crn_no.length > 0 ? dataUser['Bank Details']['CRN No.'] = crn_no : null
+    } else if (apiKey === normalPlanKey) {
+        name !== undefined && name.length > 0 ? dataUser['f_name'] = name : null
+        lastName !== undefined && lastName.length > 0 ? dataUser['l_name'] = lastName : null
+        address !== undefined && address.length > 0 ? dataUser['address'] = address : null
+        crn_no !== undefined && crn_no.length > 0 ? dataUser['Bank Details']['CRN No.'] = crn_no : null
+        bank_name !== undefined && bank_name.length > 0 ? dataUser['Bank Details']['Bank Name'] = bank_name : null
+        account_no !== undefined && account_no.length > 0 ? dataUser['Bank Details']['Account No.'] = account_no : null
+    } else if (apiKey === premiumPlanKey) {
+        name !== undefined && name.length > 0 ? dataUser['f_name'] = name : null
+        lastName !== undefined && lastName.length > 0 ? dataUser['l_name'] = lastName : null
+        address !== undefined && address.length > 0 ? dataUser['address'] = address : null
+        crn_no !== undefined && crn_no.length > 0 ? dataUser['Bank Details']['CRN No.'] = crn_no : null
+        bank_name !== undefined && bank_name.length > 0 ? dataUser['Bank Details']['Bank Name'] = bank_name : null
+        account_no !== undefined && account_no.length > 0 ? dataUser['Bank Details']['Account No.'] = account_no : null
+        worked !== undefined && worked.length > 0 ? dataUser['employeement']['Previous Company'] = worked : null
+        salary !== undefined && salary.length > 0 ? dataUser['employeement']['salary'] = salary : null
+        to_year !== undefined && to_year.length > 0 ? dataUser['employeement']['To Year'] = to_year : null
+        from_year !== undefined && from_year.length > 0 ? dataUser['employeement']['From Year'] = from_year : null
+    } else {
+        return res.json({'error':'Wong API KEY'})
+    }
+    return res.json({ 'message': 'Updated ' })
 })
 
 route.delete("/deleteRecord", (req, res) => {
@@ -122,7 +138,7 @@ route.delete("/deleteRecord", (req, res) => {
     dataUser['employeement']['From Year'] = ""
     dataUser['employeement']['salary'] = ""
     dataUser['employeement']['To Year'] = ""
-    return res.json({"message":"Data Deleted"})
+    return res.json({ "message": "Data Deleted" })
 })
 
 
