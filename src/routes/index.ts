@@ -1,9 +1,6 @@
 import { Router } from "express"
+import { checkIfKeyPresent } from "../auth/index";
 const route = Router()
-// create user will send a post reuqest own profile according to user type
-// read his own records apikey
-// update his own records
-// delete my records
 const freePlanKey = "afef8d0c3791c7b86b69e94cdf56f014fb6e6cd5";
 const normalPlanKey = "1331a7522826f7b1451b6e2069f788454b4270af"
 const premiumPlanKey = "2dbf424638e28b677b5b6456be9d66d0fa7bd38d"
@@ -11,7 +8,7 @@ const premiumPlanKey = "2dbf424638e28b677b5b6456be9d66d0fa7bd38d"
 // authorization and authentication 
 const dataUser = require("../data.json")
 
-route.get("/readRecord", (req, res) => {
+route.get("/readRecord", checkIfKeyPresent ,(req, res) => {
     const apiKey = req.header("apiKey")
     if (apiKey === freePlanKey) {
         return res.json({
